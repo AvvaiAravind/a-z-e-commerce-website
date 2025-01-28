@@ -1,0 +1,49 @@
+{
+  "gadgets": [
+    {
+      "id": "one",
+      "name": "Smartphone",
+      "image": "iphone.jpg",
+      "price": 699,
+      "addedToCart": true,
+      "quantity": 5,
+      "category": "Electronics"
+    },
+    {
+      "id": "two",
+      "name": "Refrigerator",
+      "image": "refrigerator.jpg",
+      "price": 999,
+      "addedToCart": true,
+      "quantity": 1,
+      "category": "Home Appliance"
+    },
+    {
+      "id": "four",
+      "name": "Toys",
+      "image": "toy.jpg",
+      "price": 999,
+      "addedToCart": false,
+      "quantity": 0,
+      "category": "Toys"
+    },
+    {
+      "id": "five",
+      "name": "Books",
+      "image": "books.jpg",
+      "price": 699,
+      "addedToCart": false,
+      "quantity": 0,
+      "category": "Books"
+    },
+    {
+      "id": "six",
+      "name": "Groceries",
+      "image": "groceries.jpg",
+      "price": 999,
+      "addedToCart": false,
+      "quantity": 0,
+      "category": "Groceries"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    @apply font-sans text-white bg-gray-900 leading-6 font-normal font-smooth;
+  }
+
+  a {
+    @apply font-medium text-blue-500 no-underline;
+  }
+
+  a:hover {
+    @apply text-blue-400;
+  }
+
+  button {
+    @apply rounded-lg border border-solid border-transparent px-4 py-2 text-base font-medium bg-gray-800 transition duration-200 cursor-pointer text-white outline-none;
+  }
+
+  button:hover {
+    @apply border-blue-500 outline-none;
+  }
+
+  button:focus,
+  button:focus-visible {
+    @apply font-ring;
+  }
+
+  li::marker {
+    @apply text-white;
+  }
+
+  body {
+    @apply m-0 flex min-w-[320px] min-h-screen;
+  }
+
+  #root {
+    @apply flex-grow flex flex-col;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      @apply text-gray-900 bg-white
+    }
+
+    a:hover {
+      @apply text-indigo-500;
+    }
+
+    button {
+      @apply bg-black text-white;
+    }
+
+    li::marker {
+      @apply text-black;
+    }
+    input,
+    select,
+    textarea,
+    option {
+      @apply text-black p-2 border-black;
+    }
+  }
+
+  h1 {
+    @apply text-4xl leading-tight;
+  }
+
+  h2 {
+    @apply text-3xl font-semibold;
+  }
+  h3 {
+    @apply text-2xl font-semibold;
+  }
+  h4 {
+    @apply text-xl font-medium;
+  }
+  h5 {
+    @apply text-lg font-medium;
+  }
+  h6 {
+    @apply text-base font-medium;
+  }
+
+  input,
+  select,
+  textarea {
+    @apply text-black p-2;
+  }
+
+  select,
+  option {
+    @apply cursor-pointer;
+  }
+}
+
+
+
+/* Light color scheme styles */
+:root.light {
+  input,
+  select,
+  textarea,
+  figure,
+  fieldset {
+    @apply border border-gray-300; /* Light border color */
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus,
+  figure:focus,
+  fieldset:focus {
+    @apply border-blue-500; /* Focus border color */
+  }
+}
