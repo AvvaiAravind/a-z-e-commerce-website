@@ -14,8 +14,8 @@
       "name": "Refrigerator",
       "image": "refrigerator.jpg",
       "price": 999,
-      "addedToCart": true,
-      "quantity": 1,
+      "addedToCart": false,
+      "quantity": 0,
       "category": "Home Appliance"
     },
     {
