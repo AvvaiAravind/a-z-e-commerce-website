@@ -34,6 +34,7 @@ const IndividualCart: React.FC<IndividualCartProps> = ({ gadget }) => {
       </p>
       <div className="space-x-4">
         <select
+          className=" border-black border"
           name={gadget.id}
           id={gadget.id}
           value={localQuantity}

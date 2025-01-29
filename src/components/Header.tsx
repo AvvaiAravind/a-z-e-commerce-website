@@ -20,7 +20,7 @@ const Header = ({ title = "A-Z e-com" }: HeaderProps): ReactElement => {
           <p>Total Price = {totalPrice}</p>
         </div>
         <div className="flex justify-center gap-2">
-          {location.pathname === "/" ? (
+          {location.pathname === "/" && (
             <button
               className="bg-white text-black"
               type="button"
@@ -28,7 +28,8 @@ const Header = ({ title = "A-Z e-com" }: HeaderProps): ReactElement => {
             >
               View Cart
             </button>
-          ) : (
+          )}
+          {location.pathname === "/cart" && (
             <button
               className="bg-white text-black"
               type="button"
@@ -37,14 +38,24 @@ const Header = ({ title = "A-Z e-com" }: HeaderProps): ReactElement => {
               View Home
             </button>
           )}
+
           {location.pathname === "/check-out" && (
-            <button
-              className="bg-white text-black"
-              type="button"
-              onClick={() => navigate("/cart")}
-            >
-              View Cart
-            </button>
+            <>
+              <button
+                className="bg-white text-black"
+                type="button"
+                onClick={() => navigate("/cart")}
+              >
+                View Cart
+              </button>
+              <button
+                className="bg-white text-black hidden md:block"
+                type="button"
+                onClick={() => navigate("/")}
+              >
+                View Home
+              </button>
+            </>
           )}
         </div>
       </section>

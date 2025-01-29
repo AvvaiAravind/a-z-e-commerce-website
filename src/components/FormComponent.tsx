@@ -1,4 +1,10 @@
-import { ChangeEvent, ReactElement, useContext, useState, useEffect } from "react";
+import {
+  ChangeEvent,
+  ReactElement,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { z } from "zod";
@@ -23,6 +29,7 @@ const FormComponent = ({ itemsInCart }: FormProps): ReactElement => {
 
   const [isBtnLoading, setIsBtnLoading] = useState(false);
   const navigate = useNavigate();
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     return () => {
@@ -38,6 +45,7 @@ const FormComponent = ({ itemsInCart }: FormProps): ReactElement => {
       ...prevData,
       [name]: value,
     }));
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
   const handleNameInput = (e: ChangeEvent<HTMLInputElement>) => {
@@ -173,10 +181,16 @@ const FormComponent = ({ itemsInCart }: FormProps): ReactElement => {
     const result = paymentSchema.safeParse(formData);
 
     if (!result.success) {
-      toast.error("Please enter valid detail");
+      const newErrors: Record<string, string> = {};
+      result.error.errors.forEach((error) => {
+        newErrors[error.path[0]] = error.message;
+      });
+      setErrors(newErrors);
+      toast.error("Please enter valid details");
       console.error(result.error.errors);
     } else {
       setIsBtnLoading(true);
+      setErrors({});
       handleBulkUpdate(itemsInCart);
     }
   };
@@ -200,6 +214,7 @@ const FormComponent = ({ itemsInCart }: FormProps): ReactElement => {
           autoFocus
           placeholder="Your Name"
         />
+        {errors.name && <p className="text-red-500">{errors.name}</p>}
         <label htmlFor="address">Address:</label>
         <textarea
           className="border-black border"
@@ -211,6 +226,7 @@ const FormComponent = ({ itemsInCart }: FormProps): ReactElement => {
           value={formData.address}
           onChange={handleInputChange}
         ></textarea>
+        {errors.address && <p className="text-red-500">{errors.address}</p>}
         <label htmlFor="phoneNumber">Phone Number:</label>
         <input
           className="border-black border"
@@ -221,6 +237,9 @@ const FormComponent = ({ itemsInCart }: FormProps): ReactElement => {
           onChange={handlePhoneInput}
           placeholder="88826 66357"
         />
+        {errors.phoneNumber && (
+          <p className="text-red-500">{errors.phoneNumber}</p>
+        )}
       </fieldset>
       <div className="flex flex-col">
         <fieldset className="grid place-content-center gap-2 border p-4 border-black">
@@ -239,6 +258,9 @@ const FormComponent = ({ itemsInCart }: FormProps): ReactElement => {
             onChange={handleCardInput}
             maxLength={19}
           />
+          {errors.cardNumber && (
+            <p className="text-red-500">{errors.cardNumber}</p>
+          )}
           <label htmlFor="expiry-date">Expiry Date:</label>
           <input
             className="border-black border"
@@ -250,6 +272,9 @@ const FormComponent = ({ itemsInCart }: FormProps): ReactElement => {
             onChange={handleExpiryInput}
             maxLength={5}
           />
+          {errors.expiryDate && (
+            <p className="text-red-500">{errors.expiryDate}</p>
+          )}
           <label htmlFor="cvv">CVV:</label>
           <input
             className="border-black border"
@@ -263,6 +288,7 @@ const FormComponent = ({ itemsInCart }: FormProps): ReactElement => {
             onChange={handleCvvInput}
             maxLength={4}
           />
+          {errors.cvv && <p className="text-red-500">{errors.cvv}</p>}
         </fieldset>
         <button className="mt-4" type="submit" disabled={isBtnLoading}>
           Place Order
