@@ -5,8 +5,8 @@
       "name": "Smartphone",
       "image": "iphone.jpg",
       "price": 699,
-      "addedToCart": true,
-      "quantity": 5,
+      "addedToCart": false,
+      "quantity": 0,
       "category": "Electronics"
     },
     {

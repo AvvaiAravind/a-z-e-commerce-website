@@ -1,4 +1,5 @@
-import { ReactElement, useContext } from "react";
+import { ReactElement, useContext, useState } from "react";
+import { FaSpinner } from "react-icons/fa";
 import { DataContext, GadgetsType } from "../context/DataContext";
 
 type GatgetProps = {
@@ -6,8 +7,26 @@ type GatgetProps = {
 };
 
 const Gadget = ({ gadget }: GatgetProps): ReactElement => {
+  const [loadingStates, setLoadingStates] = useState<{
+    [key: string]: boolean;
+  }>({});
   // hooks
+
   const { handleAddToCart } = useContext(DataContext);
+
+  const handleAddToCartClick = async (id: string) => {
+    setLoadingStates((prev) => ({ ...prev, [id]: true }));
+    try {
+      await handleAddToCart(id);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoadingStates((prev) => ({
+        ...prev,
+        [id]: false,
+      }));
+    }
+  };
 
   return (
     <section className="p-4">
@@ -25,8 +44,17 @@ const Gadget = ({ gadget }: GatgetProps): ReactElement => {
         {gadget.addedToCart && <p>Item added to cart - {gadget.quantity}</p>}
       </div>
 
-      <button type="button" onClick={() => handleAddToCart(gadget.id)}>
-        Add to Cart
+      <button
+        className="flex justify-evenly items-center"
+        type="button"
+        disabled={loadingStates[gadget.id]}
+        onClick={() => handleAddToCartClick(gadget.id)}
+      >
+        {loadingStates[gadget.id] ? (
+          <FaSpinner className="animate-spin" />
+        ) : (
+          "Add to Cart"
+        )}
       </button>
     </section>
   );

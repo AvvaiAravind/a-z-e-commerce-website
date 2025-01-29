@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactElement, useContext, useState } from "react";
+import { ChangeEvent, ReactElement, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { z } from "zod";
@@ -23,6 +23,12 @@ const FormComponent = ({ itemsInCart }: FormProps): ReactElement => {
 
   const [isBtnLoading, setIsBtnLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    return () => {
+      setFormData(initFormState);
+    };
+  }, [setFormData]);
 
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -250,7 +256,7 @@ const FormComponent = ({ itemsInCart }: FormProps): ReactElement => {
             type="text"
             name="cvv"
             id="cvv"
-            placeholder="123"
+            placeholder="1234"
             inputMode="numeric"
             pattern="\d*"
             value={formData.cvv}

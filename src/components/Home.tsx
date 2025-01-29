@@ -57,9 +57,9 @@ const Home = () => {
         }
       </section>
       <section
-        className={` p-2 flex flex-wrap ${
+        className={` p-2 flex flex-wrap justify-center ${
           !filteredGadgets.length || fetchError || isLoading
-            ? "justify-center items-center"
+            ? "items-center"
             : ""
         }
       `}

@@ -32,7 +32,7 @@ type DataContextProps = {
   setTotalItems: React.Dispatch<React.SetStateAction<number>>;
   setTotalPrice: (value: React.SetStateAction<number>) => void;
   itemsInCart: GadgetsType[];
-  setItemsInCart: React.Dispatch<React.SetStateAction<GadgetsType[]>>
+  setItemsInCart: React.Dispatch<React.SetStateAction<GadgetsType[]>>;
 };
 
 type DataProviderProps = {
@@ -59,7 +59,7 @@ const initFormState = {
 
 const initialContext = {
   gadgets: [],
-  setGadgets: () => {}, // Dummy function to match type;
+  setGadgets: () => {},
   fetchError: "",
   isLoading: false,
   handleAddToCart: async () => {},
@@ -68,11 +68,11 @@ const initialContext = {
   totalPrice: 0,
   formData: initFormState,
   setFormData: () => {},
-  setTotalItems: () => { },
-  setTotalPrice: () => { },
+  setTotalItems: () => {},
+  setTotalPrice: () => {},
   itemsInCart: [],
-  setItemsInCart: () => {}
-  };
+  setItemsInCart: () => {},
+};
 
 const DataContext = createContext<DataContextProps>(initialContext);
 
@@ -81,7 +81,7 @@ const DataProvider = ({ children }: DataProviderProps): ReactElement => {
   const [totalItems, setTotalItems] = useState<number>(0);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [formData, setFormData] = useState(initFormState);
-  const [itemsInCart, setItemsInCart ] = useState<GadgetsType[]>([])
+  const [itemsInCart, setItemsInCart] = useState<GadgetsType[]>([]);
   // hooks
 
   const { data, fetchError, isLoading } = useFetch(
@@ -108,8 +108,8 @@ const DataProvider = ({ children }: DataProviderProps): ReactElement => {
         0
       )
     );
-  }, [itemsInCart])
-  
+  }, [itemsInCart]);
+
   //functions
 
   const handleAddToCart = async (
@@ -121,6 +121,11 @@ const DataProvider = ({ children }: DataProviderProps): ReactElement => {
     const quantity = gadgetToUpdate?.quantity!;
 
     if (!gadgetToUpdate) return;
+
+    if (!userInput && quantity >= 10) {
+      toast.error("Can't purchase more than 10 at a time");
+      return;
+    }
 
     const updatePayload = isAddedToCart
       ? { quantity: userInput ?? quantity + 1 }
@@ -207,7 +212,7 @@ const DataProvider = ({ children }: DataProviderProps): ReactElement => {
         setTotalItems,
         setTotalPrice,
         itemsInCart,
-        setItemsInCart
+        setItemsInCart,
       }}
     >
       {children}
@@ -216,4 +221,3 @@ const DataProvider = ({ children }: DataProviderProps): ReactElement => {
 };
 
 export { DataContext, DataProvider };
-

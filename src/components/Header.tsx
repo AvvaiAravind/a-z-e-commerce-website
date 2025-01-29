@@ -19,14 +19,31 @@ const Header = ({ title = "A-Z e-com" }: HeaderProps): ReactElement => {
           <p>Total Items = {totalItems}</p>
           <p>Total Price = {totalPrice}</p>
         </div>
-        <div className="flex flex-col justify-center">
+        <div className="flex justify-center gap-2">
           {location.pathname === "/" ? (
-            <button className="bg-white text-black" type="button" onClick={() => navigate("/cart")}>
+            <button
+              className="bg-white text-black"
+              type="button"
+              onClick={() => navigate("/cart")}
+            >
               View Cart
             </button>
           ) : (
-            <button className="bg-white text-black"type="button" onClick={() => navigate("/")}>
+            <button
+              className="bg-white text-black"
+              type="button"
+              onClick={() => navigate("/")}
+            >
               View Home
+            </button>
+          )}
+          {location.pathname === "/check-out" && (
+            <button
+              className="bg-white text-black"
+              type="button"
+              onClick={() => navigate("/cart")}
+            >
+              View Cart
             </button>
           )}
         </div>
